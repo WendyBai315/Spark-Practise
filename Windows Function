@@ -1,0 +1,19 @@
+What are windows funtions and when do you need a windows function ?
+
+The core of windows functions is that it operates on a group of rows while still be returning a single value for every input row. Compared to other SQL aggregation functions, such as MAX(), COUNT(), the windows function actually gives you the flexibility on other calculations as well with a high speed for things like: calculating moving average, ranking based problem.
+
+Use Case Description: Users Shopping Time for analysis in a Super Market
+
+I have a database that have user's location information in a supermarket reported every second or when the user move more than 20 inches. So i have the following columns:
+
+UserID, 
+Area( the user location at which area and which brands), 
+time (yyyy-mon-day, hh:mn:sc), 
+confidenceFactor (How confident the mobile device is about the location info -- the smaller the better)
+
+Question one:
+
+I'd like to get the information of the users' linger Time at each area and convert the device updates based table ( DF1) to a Area visit based table with Linger Time calculated.
+
+Ideas: 
+We would have to first sort the data by UserID and then sort by Time.
