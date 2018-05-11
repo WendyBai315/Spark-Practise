@@ -1,0 +1,23 @@
+Read in csv files
+
+1.First distriute your file into hadoop hdfs system by:
+  hadoop hdfs -put filename path_on_hdfs
+
+
+2.Read in the file 
+  2.1 read it in as a rdd and then convert to DF for further calculation
+        import csv 
+        rdd0 = sc.textFile("path&file.csv").map(lambda x: tuple([l for l in csv.reader([x.encode("utf-8")])][0]))
+        # use the first line in the file as column names
+        df = rdd0.filter(lambda x: "AnyColumanName" not in x).toDF(rdd0.first())
+        
+        
+  2.2 read it in as a dictionary key value pairs 
+       
+        def loadRecords(fileNameContents):
+            input = StringIO.StringIO(fileNameContents[1])
+            reader = csv.DictReader(input, fieldnames = ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11"])
+            return reader
+       fullData = sc.wholeTextFiles("test.csv")flatMap(loadRecords)
+       fullData.take(5)
+       # this will return a list of dictionary, each row will be one dictionary and keys are column names.
